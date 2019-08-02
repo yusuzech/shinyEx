@@ -5,18 +5,22 @@ library(DT)
 library(reshape2)
 library(shiny)
 library(shinydashboard)
-source("../../../R/pairedDTPie.R")
+source("../../../R/pairedDTPlot.R")
 
-data <- reshape2::dcast(diamonds,clarity ~ color,value.var = "x",fun.aggregate = mean)
+data <- reshape2::dcast(diamonds,clarity ~ color,value.var = "x",fun.aggregate = mean) %>%
+    mutate(clarity = as.character(clarity))
 
 ui <- fluidPage(
-    pairedDTPieUI("test")
+    pairedDTPlotUI("test")
 )
 
 server <- function(input, output, session) {
-  callModule(module = pairedDTPie,
+  callModule(module = pairedDTPlot,
              id = "test",
              df = data,
+             direction = "h",
+             value_type = "money",
+             h_ignore_columns = "D"
              )
 }
 
