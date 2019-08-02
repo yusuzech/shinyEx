@@ -101,7 +101,7 @@ pairedDTPie <- function(input,output,session,
 
         plot_data <- data.frame(
             label = row_names,
-            value = data[,1+input$DTPieDT_columns_selected]
+            value = df[,1+input$DTPieDT_columns_selected]
         )
         
         p <- plot_ly(
