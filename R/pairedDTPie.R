@@ -12,27 +12,31 @@ pairedDTPie <- function(input,output,session,
                         width_dt = 8, # table width
                         width_plot = 4, # graph width,
                         title = "Diamonds",
-                        value_type = "general" #valid
-                        ){
+                        value_type = "general", #valid
+                        collapsed = TRUE,
+                        status = "info"
+){
     # renderUI first.
     output$DTPieUI <- renderUI({
         ns <- session$ns
         shinydashboard::box(
             width = 12,
             title = title,
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            collapsed = collapsed,
+            status = status,
             fluidRow(
                 column(
                     width = width_dt,
                     div(
                         style = "font-size:75%;",
-                        DT::DTOutput(ns("DTPieDT")) %>%
-                            shinycssloaders::withSpinner()
+                        DT::DTOutput(ns("DTPieDT"))
                     )
                 ),
                 column(
                     width = width_plot,
-                    plotlyOutput(ns("DTPiePie")) %>%
-                        shinycssloaders::withSpinner()
+                    plotlyOutput(ns("DTPiePie"))
                 )
             )
         )
@@ -98,7 +102,7 @@ pairedDTPie <- function(input,output,session,
     # plotly pie chart
     observeEvent(input$DTPieDT_columns_selected,{
         req(!is.null(input$DTPieDT_columns_selected))
-
+        
         plot_data <- data.frame(
             label = row_names,
             value = df[,1+input$DTPieDT_columns_selected]
