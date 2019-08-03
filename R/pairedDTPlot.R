@@ -52,12 +52,10 @@ pairedDTPlot <- function(input,output,session,
     
     # convert first column to character
     df[,1] <- as.character(df[,1])
-    # print(df)
     # all columns except the first one should be numeric
     stopifnot(purrr::map_lgl(df[,-1],is.numeric))
     col_names <- colnames(df)[-1]
     row_names <- df[,1]
-    # print(df[,1])
     
     # format function depented on input type ----
     if(value_type %in% c("currency","money")){
@@ -69,6 +67,11 @@ pairedDTPlot <- function(input,output,session,
                 digits = 0
             )
         }
+        
+        number_format_func <- function(x){
+            as.character(formattable::currency(x,digits = 0))
+        }
+        
         plot_y_tick_foramt <- "$"
         
     } else if (value_type %in% c("percentage","percent")){
@@ -79,6 +82,11 @@ pairedDTPlot <- function(input,output,session,
                 digits = 2
             )
         }
+        
+        number_format_func <- function(x){
+            as.character(formattable::percent(x,digits = 2))
+        }
+        
         plot_y_tick_foramt <- "%"
         
     } else {
@@ -89,6 +97,11 @@ pairedDTPlot <- function(input,output,session,
                 digits = 2
             )
         }
+        
+        number_format_func <- function(x){
+            as.character(formattable::comma(x))
+        }
+        
         plot_y_tick_foramt <- ".2"
     }
     
@@ -103,15 +116,17 @@ pairedDTPlot <- function(input,output,session,
         stop("Direction can only be h or v")
     }
     
+    # + datatable ----
     output$DTPlotDT <- renderDataTable({
         DT::datatable(
             df[,-1],
             rownames = row_names,
             selection = list(target = dt_target,mode = dt_mode,selected = 1),
+            filter = "top",
             options = list(
                 scrollX = TRUE,
                 scrollY = height,
-                dom = "tp"
+                dom = "ftp"
             )
         ) %>%
             dt_format_func(
@@ -119,15 +134,15 @@ pairedDTPlot <- function(input,output,session,
             ) %>%
             DT::formatStyle(
                 columns = col_names,
-                color = DT::styleInterval(0.5,c("red","black"))
+                color = DT::styleInterval(1e-5,c("red","black"))
             )
     },server = server)
     
-    # plotly pie chart
     observeEvent(c(
         input$DTPlotDT_columns_selected,
         input$DTPlotDT_rows_selected
     ),{
+        # + plotly pie chart ----
         if(direction == "v"){
             plot_data <- data.frame(
                 label = row_names,
@@ -137,17 +152,20 @@ pairedDTPlot <- function(input,output,session,
                 data = plot_data,
                 labels = ~label,
                 values  = ~value,
-                type = "pie"
+                type = "pie",
+                hoverinfo = "labels"
             ) %>%
                 layout(
                     showlegend = F,
                     xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                     yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)
                 )
+            req(p)
             output$DTPlotPlot <- renderPlotly(p)
         } else if(direction == "h"){
-            # req(!is.null(input$DTPlotDT_rows_selected))
+            # + plotly line chart ----
             # filter column names
+            
             df <- df[,colnames(df)[!(colnames(df) %in% h_ignore_columns)]]
             plot_data <- df %>%
                 dplyr::filter(row_number() %in% input$DTPlotDT_rows_selected)
@@ -161,12 +179,17 @@ pairedDTPlot <- function(input,output,session,
                 )
             })
             
-            p <- plot_ly(type = "scatter", mode  = "lines")
+            p <- plot_ly(type = "scatter", 
+                         mode  = "lines")
             for(y_trace in y_traces){
                 p <- p %>%
                     add_trace(x = x_values,
                               y = y_trace$value,
-                              name = y_trace$name)
+                              name = y_trace$name,
+                              hoverinfo = "text",
+                              text = glue("{x_labels}
+                                           {number_format_func(y_trace$value)}
+                                           {y_trace$name}"))
             }
             p <- p %>%
                 layout(
@@ -180,6 +203,7 @@ pairedDTPlot <- function(input,output,session,
                         tickformat = plot_y_tick_foramt
                     )
                 )
+            req(p)
             output$DTPlotPlot <- renderPlotly(p)
         }
     })
