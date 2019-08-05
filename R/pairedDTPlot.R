@@ -69,7 +69,7 @@ pairedDTPlot <- function(input,output,session,
             )
         }
         
-        plot_y_tick_foramt <- "$.0f"
+        plot_y_tick_foramt <- "$,.0f"
         
         number_format_func <- function(x){
             formattable::currency(x,digits = 0)

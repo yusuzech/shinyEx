@@ -10,7 +10,7 @@ source("../../../R/pairedDTPlot.R")
 
 data <- reshape2::dcast(diamonds,clarity ~ color,value.var = "x",fun.aggregate = mean) %>%
     mutate(clarity = as.character(clarity)) %>%
-    mutate_if(is.numeric,~round(.x,2))
+    mutate_if(is.numeric,~1000*round(.x,2)) 
 
 ui <- fluidPage(
     fluidRow(
