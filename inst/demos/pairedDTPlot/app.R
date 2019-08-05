@@ -4,7 +4,8 @@ library(plotly)
 library(DT)
 library(reshape2)
 library(shiny)
-library(shinydashboard)
+# library(shinydashboard)
+library(glue)
 source("../../../R/pairedDTPlot.R")
 
 data <- reshape2::dcast(diamonds,clarity ~ color,value.var = "x",fun.aggregate = mean) %>%
