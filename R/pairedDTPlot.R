@@ -68,12 +68,7 @@ pairedDTPlot <- function(input,output,session,
                 digits = 0
             )
         }
-        
-        number_format_func <- function(x){
-            as.character(formattable::currency(x,digits = 0))
-        }
-        
-        plot_y_tick_foramt <- "$"
+        plot_y_tick_foramt <- "$.0f"
         
     } else if (value_type %in% c("percentage","percent")){
         dt_format_func <- function(table,columns){
@@ -83,12 +78,7 @@ pairedDTPlot <- function(input,output,session,
                 digits = 2
             )
         }
-        
-        number_format_func <- function(x){
-            as.character(formattable::percent(x,digits = 2))
-        }
-        
-        plot_y_tick_foramt <- "%"
+        plot_y_tick_foramt <- "%.2f"
         
     } else {
         dt_format_func <- function(table,columns){
@@ -98,12 +88,7 @@ pairedDTPlot <- function(input,output,session,
                 digits = 2
             )
         }
-        
-        number_format_func <- function(x){
-            as.character(formattable::comma(x))
-        }
-        
-        plot_y_tick_foramt <- ".2"
+        plot_y_tick_foramt <- ".2f"
     }
     
     # plot by row or column?
