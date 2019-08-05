@@ -1,6 +1,7 @@
 library(plotly)
 library(DT)
 library(shinyjs)
+library(formattable)
 
 # plotly line/pie chart controled by datatable
 
