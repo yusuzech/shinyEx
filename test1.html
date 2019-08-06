@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .arrow-button-group{
+            font-size: 150%;
+            cursor:default;
+        }
+
+        .arrow-button{
+            color:green;
+        }
+
+        .arrow-button:hover{
+            cursor:pointer;
+            color:blue;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div style='line-height:100%' class='arrow-button-group'> 
+        <span button-direction='left' class='arrow-button'>&#9664</span>
+        <span button-direction='center' style='font-size:120%' class='arrow-button'>&#9724</span>
+        <span button-direction='right' class='arrow-button'>&#9654</span>
+    </div>
+    <br>
+    <div style='line-height:100%' class='arrow-button-group'>
+        <div>
+            <span button-direction='up' class='arrow-button'>&#9650</span>
+        </div>
+        <div>
+            <span button-direction='center' style='font-size:120%' class='arrow-button'>&#9724</span>
+        </div>
+        <div>
+            <span button-direction='down' class='arrow-button'>&#9660</span>
+        </div>
+    </div>
+    <br>
+    <div style='line-height:100%' class='arrow-button-group'>
+            <div>
+                <span style='opacity:0'>&#9664</span>
+                <span button-direction='up' class='arrow-button'>&#9650</span>
+                <span style='opacity:0'>&#9654</span>
+            </div>
+            <div>
+                <span button-direction='left' class='arrow-button'>&#9664</span>
+                <span button-direction='button-center' style='font-size:120%' class='arrow-button'>&#9724</span>
+                <span button-direction='right' class='arrow-button'>&#9654</span>
+            </div>
+            <div>
+                <span style='opacity:0'>&#9664</span>
+                <span button-direction='down' class='arrow-button'>&#9660</span>
+                <span style='opacity:0'>&#9654</span>
+            </div>
+    </div>
+    
+</body>
+</html>
