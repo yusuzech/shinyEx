@@ -57,7 +57,11 @@ arrowButtonGroupInput <- function(inputId,
     tagList(
         singleton(
             tags$head(
-                tags$style(id ="arrowButtonGroupInputCSS",css_text_glued)
+                # production
+                tags$style(id ="arrowButtonGroupInputCSS",css_text_glued),
+                # tags$script(src = wwwResourcePath("js/arrowButtonGroupInput.R"))
+                #development
+                tags$script(src = "js/arrowButtonGroupInput.R")
             )
         ),
         tags$div(
