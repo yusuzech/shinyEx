@@ -1,15 +1,12 @@
 library(shiny)
-library(shinyjs)
-source("../../../R/arrowButtonGroup.R")
+library(shinyModulesEx)
 
 ui <- fluidPage(
   fluidRow("test:"),
-  useShinyjs(),
-  fluidRow(arrowButtonGroupUI("test"))
+  fluidRow(arrowButtonGroupInput(inputId = "test",type = "a",size = "200%",start = c(0L,0L)))
 )
 
 server <- function(input, output, session) {
-  callModule(module = arrowButtonGroup,id = "test",)
 }
 
 shinyApp(ui, server)
