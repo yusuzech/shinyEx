@@ -4,8 +4,7 @@
 \alias{arrowButtonGroupInput}
 \title{Generates arrow buttons}
 \usage{
-arrowButtonGroupInput(inputId, type = "h", size = "100\%",
-  color = "rgb(0,0,0)", colorClick = "rgb(128,128,128)")
+arrowButtonGroupInput(inputId, type = "h", origin = c(0L, 0L))
 }
 \description{
 Generates arrow buttons

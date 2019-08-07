@@ -2,8 +2,8 @@
 
 export(arrowButtonGroupInput)
 export(glueCSS)
-export(pairedDTPlot)
-export(pairedDTPlotUI)
+export(pairedDTPlotModule)
+export(pairedDTPlotModuleUI)
 export(readwwwResource)
 export(runDemo)
 export(runDemoPairedDTplot)

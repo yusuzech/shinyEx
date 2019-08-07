@@ -1,4 +1,4 @@
-#{{inputId}} .arrow-button-group{
+.arrow-button-group{
     cursor:default;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -8,19 +8,19 @@
     user-select: none; /* Non-prefixed version, currentlysupported by Chrome and Opera */
 }
 
-#{{inputId}} .arrow-button{
-    color:{{color}};
+.arrow-button-group .arrow-button{
+    color:rgb(85,85,85);
 }
 
-#{{inputId}} .arrow-button-group{
-    font-size:{{size}}
+.arrow-button-group{
+    font-size:100%
 }
 
-#{{inputId}} .arrow-button:hover{
+.arrow-button-group .arrow-button:hover{
     cursor:pointer;
 }
 
-#{{inputId}} .arrow-button:active{
+.arrow-button-group .arrow-button:active{
     cursor:pointer;
-    color:{{colorClick}};
+    color:rgb(123,123,123);
 }
