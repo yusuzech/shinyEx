@@ -9,7 +9,7 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-  callModule(module = arrowButtonGroup,id = "test")
+  callModule(module = arrowButtonGroup,id = "test",)
 }
 
 shinyApp(ui, server)

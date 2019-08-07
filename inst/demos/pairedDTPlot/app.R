@@ -1,16 +1,19 @@
-library(tidyverse)
 library(shiny)
 library(plotly)
 library(DT)
-library(reshape2)
-library(shiny)
-# library(shinydashboard)
 library(glue)
-source("../../../R/pairedDTPlot.R")
+library(shinyModulesEx)
+library(dplyr)
+library(purrr)
 
-data <- reshape2::dcast(diamonds,clarity ~ color,value.var = "x",fun.aggregate = mean) %>%
-    mutate(clarity = as.character(clarity)) %>%
-    mutate_if(is.numeric,~1000*round(.x,2)) 
+data <- structure(list(clarity = c("I1", "SI2", "SI1", "VS2", "VS1", 
+                   "VVS2", "VVS1", "IF"), D = c(6450, 5960, 5460, 5160, 5250, 5050, 
+                    4890, 5590), E = c(6490, 6100, 5580, 5260, 5210, 4870, 4720, 
+                   4960), F = c(6430, 6240, 5820, 5510, 5500, 5230, 4940, 4830), 
+                   G = c(6670, 6380, 5830, 5760, 5580, 5390, 5060, 4940), H = c(7040, 
+                    6740, 6210, 5980, 5620, 5150, 4910, 4980), I = c(7030, 7010, 
+                     6360, 6330, 5960, 5430, 5130, 5000), J = c(7380, 7070, 6580, 
+                    6480, 6190, 6250, 5800, 5420)), class = "data.frame", row.names = c(NA,-8L))
 
 ui <- fluidPage(
     fluidRow(

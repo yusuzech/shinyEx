@@ -1,15 +1,12 @@
-library(plotly)
-library(DT)
-library(shinyjs)
-library(formattable)
-
-# plotly line/pie chart controled by datatable
-
+#' pairedDTPlotUI
+#' @export
 pairedDTPlotUI <- function(id){
     ns <- NS(id)
     uiOutput(ns("DTPlotUI"))
 }
 
+#'pairedDTplot Server
+#' @export
 pairedDTPlot <- function(input,output,session,
                          df,
                          width_dt = 8, # table width
@@ -209,5 +206,4 @@ pairedDTPlot <- function(input,output,session,
             output$DTPlotPlot <- renderPlotly(p)
         }
     })
-    
 }
