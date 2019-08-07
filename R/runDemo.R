@@ -1,7 +1,20 @@
 #' Run Demos
 #' @export
 runDemo <- function(name){
-    system.file(paste0("demos/",name,"/app.R"),package = "shinyModulesEx")
-    shiny::runApp(paste0("inst/demos/",name,"/app.R"))
+    path <- system.file(paste0("demos/",name),package = "shinyModulesEx")
+    shiny::runApp(appDir = path)
 }
 
+
+#' Run Demo PairedDTplot
+#' @export
+runDemoPairedDTplot <- function(){
+    runDemo("PairedDTplot")
+}
+
+
+#' run Demo arrowButtonGroupInput
+#' @export
+runDemoarrowButtonGroupInput <- function(){
+    runDemo("arrowButtonGroupInput")
+}

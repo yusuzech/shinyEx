@@ -20,5 +20,5 @@ readwwwResource <- function(path){
 #' use CSS templates with < & >
 #' @export
 glueCSS <- function(...,.envir = parent.frame()){
-    glue(...,.open = "{{", .close = "}}",.envir = .envir)
+    glue::glue(...,.open = "{{", .close = "}}",.envir = .envir)
 }

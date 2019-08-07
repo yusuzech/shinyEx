@@ -1,21 +1,11 @@
 #' Generates arrow buttons
 #' @export
 arrowButtonGroupInput <- function(inputId,
-                                  start = 0L,
                                   type = "h",
                                   size = "100%",
                                   color="rgb(0,0,0)",
                                   colorClick="rgb(128,128,128)"){
-    # validate user input
-    if(!(type %in% c("v","h","a"))){
-        stop("type can only be one of 'v'(vertical buttons),'h'(horizontal buttons) or 'a'(all buttons in four direction)")
-    } else if (!(length(start) %in% c(1,2)) & is.integer(start)){
-        stop("start must be integer vector with one or two elements.")
-    } else if (type == "a" & length(start) == 1){
-        stop("for type a(all buttons in four direction), must provide start such as c(0L,0L), c(0L,01L) ...")
-    } else if(type %in% c("v","h") & length(start) == 2){
-        stop("for type v(horizontal buttons) & v(vertical buttons), must provide start such 0L,1L...")
-    }
+    print("development version")
     
     css_text <- readwwwResource("css/arrowButtonGroupInput.css") # CSS templates
     # read size,color and colorClick
