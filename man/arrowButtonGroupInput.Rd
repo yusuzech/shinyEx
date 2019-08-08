@@ -4,7 +4,7 @@
 \alias{arrowButtonGroupInput}
 \title{Generates arrow buttons}
 \usage{
-arrowButtonGroupInput(inputId, type = "h", origin = c(0L, 0L))
+arrowButtonGroupInput(inputId, type = "h")
 }
 \description{
 Generates arrow buttons

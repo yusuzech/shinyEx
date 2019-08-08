@@ -1,16 +1,17 @@
 $(document).on("click","span.arrow-button",function(event){
     var el = event.target;
     var master = $(el).closest(".arrow-button-group");
+    // update track
+    // send direction
+    var direction = $(el).attr("direction");
+    master.data("val",direction);
+    // update directions(count of each direction)
+    var direction_val = master.data(direction);
+    master.data(direction,direction_val + 1);
+    // update track of total clicks
+    var track_val = master.data("track");
+    master.data("track",track_val + 1);
     
-    var newVal = $(el).attr("value").split(",").map(function(x){
-        return(+x);
-    });
-    var oldVal = master.data("val");
-    var out = [];
-    for(var i=0;i<2;i++){
-      out.push(oldVal[i] + newVal[i]);
-    }
-    master.data("val",out);
     master.trigger("change");
     event.preventDefault();
     // console.log(master.data("val"));
@@ -24,17 +25,24 @@ $.extend(arrowButtonGroupInputBinding, {
     return $(scope).find(".arrow-button-group");
   },
   initialize: function(el){
-    var origin = $(el).attr("origin").split(",").map(function(x){return parseInt(x)});
-    $(el).data("val",origin);
+    $(el).data("up",0);
+    $(el).data("left",0);
+    $(el).data("down",0);
+    $(el).data("right",0);
+    $(el).data("track",0);
   },
-  
   getValue: function(el) {
-    var result = $(el).data("val").map(function(e){return parseInt(e)});
-    if($(el).attr("type") === "a"){
-      return result;
+    // since observe doesn't respond to the same value, we can't just get direction
+    // we need to append another value(count of total clicks) in order to make the
+    // value different
+    if($(el).data("track") === 0){
+      out = null;
     } else {
-      return result[0] + result[1];
+      var direction = $(el).data("val");
+      var direction_val = $(el).data(direction);
+      out = direction + ":" + direction_val; 
     }
+    return out;
   },
   subscribe: function(el, callback) {
     $(el).on("change.arrowButtonGroupInputBinding", function(e) {

@@ -18,3 +18,9 @@ runDemoPairedDTplot <- function(){
 runDemoarrowButtonGroupInput <- function(){
     runDemo("arrowButtonGroupInput")
 }
+
+#' run Demo selectArrowInputModule
+#' @export
+runDemoselectArrowInputModule <- function(){
+    runDemo("selectArrowInputModule")
+}
