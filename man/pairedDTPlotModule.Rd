@@ -6,8 +6,8 @@
 \usage{
 pairedDTPlotModule(input, output, session, df, width_dt = 8,
   width_plot = 4, title = "", value_type = "general",
-  direction = "v", h_ignore_columns = NULL, height = "300px",
-  server = FALSE)
+  direction = "v", h_ignore_columns = NULL, h_reverse = FALSE,
+  height = "300px", server = FALSE)
 }
 \description{
 pairedDTplot Server

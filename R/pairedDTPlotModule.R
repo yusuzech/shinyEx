@@ -15,6 +15,7 @@ pairedDTPlotModule <- function(input,output,session,
                          value_type = "general", #valid
                          direction = "v", #h & v for horizontal and vertical
                          h_ignore_columns = NULL, # column names to igonore when plotting horizontally
+                         h_reverse = FALSE, # reverse ehen plotting horizontally?
                          height = "300px",
                          server = FALSE # table on server side
 ){
@@ -169,14 +170,25 @@ pairedDTPlotModule <- function(input,output,session,
             plot_data <- df %>%
                 dplyr::filter(row_number() %in% input$DTPlotDT_rows_selected)
             # convert data frame to traces
-            x_labels <- colnames(plot_data)[-1]
-            x_values <- seq_along(x_labels)
-            y_traces <- pmap(unname(plot_data),function(name,...){
-                list(
-                    name = name,
-                    value = unlist(list(...))
-                )
-            })
+            if(h_reverse){
+                x_labels <- rev(colnames(plot_data)[-1])
+                x_values <- seq_along(x_labels)
+                y_traces <- pmap(unname(plot_data),function(name,...){
+                    list(
+                        name = name,
+                        value = rev(unlist(list(...)))
+                    )
+                })
+            } else {
+                x_labels <- colnames(plot_data)[-1]
+                x_values <- seq_along(x_labels)
+                y_traces <- pmap(unname(plot_data),function(name,...){
+                    list(
+                        name = name,
+                        value = unlist(list(...))
+                    )
+                })
+            }
             
             p <- plot_ly(type = "scatter", 
                          mode  = "lines")
