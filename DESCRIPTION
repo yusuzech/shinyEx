@@ -1,6 +1,11 @@
 Package: shinyModulesEx
+Type: Package
 Title: Extend Shiny Modules and Inputs
 Version: 0.0.1
+Author: Yifu Yan
+Maintainer: Yifu Yan(yifyan@hotmail.com)
+Descripition: shinyModulesEx uses custom input bindings and modules to create
+    interesting widgets 
 Depends: R (>= 3.1.0)
 Imports:
     shiny,
@@ -10,4 +15,7 @@ Imports:
     plotly,
     dplyr,
     purrr
+License: MIT 
+Encoding: UTF-8
+LazeData: true
 RoxygenNote: 6.1.1
