@@ -9,6 +9,7 @@ Descripition: shinyModulesEx uses custom input bindings and modules to create
 Depends: R (>= 3.1.0)
 Imports:
     shiny,
+    shinyWidgets,
     DT,
     formattable,
     glue,

@@ -8,8 +8,8 @@ runDemo <- function(name){
 
 #' Run Demo PairedDTplot
 #' @export
-runDemoPairedDTplot <- function(){
-    runDemo("PairedDTplot")
+runDemoPairedDTplotlyModule <- function(){
+    runDemo("PairedDTplotlyModule")
 }
 
 

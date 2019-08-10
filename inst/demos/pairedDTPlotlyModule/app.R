@@ -46,7 +46,7 @@ ui <- fluidPage(
             )
         )
     ),
-    fluidRow(pairedDTPlotModuleUI("test"))
+    fluidRow(pairedDTPlotlyModuleUI("test"))
 )
 
 server <- function(input, output, session) {
@@ -56,7 +56,7 @@ server <- function(input, output, session) {
         input$selectFormat,
         input$ignoreColumns
     ),{
-        callModule(module = pairedDTPlotModule,
+        callModule(module = pairedDTPlotlyModule,
                    id = "test",
                    df = data,
                    direction = input$selectDirection,

@@ -1,0 +1,5 @@
+pickerPlotlyModuleUI <- function(inputId){
+    
+}
+
+pickerPlotlyModule()
