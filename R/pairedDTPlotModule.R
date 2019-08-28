@@ -142,11 +142,17 @@ pairedDTPlotModule <- function(input,output,session,
         input$DTPlotDT_columns_selected,
         input$DTPlotDT_rows_selected
     ),{
+        
         # + plotly pie chart ----
         if(direction == "v"){
+            selected_column <- ifelse(
+                is.null(input$DTPlotDT_columns_selected),
+                1,
+                input$DTPlotDT_columns_selected
+            )
             plot_data <- data.frame(
                 label = row_names,
-                value = df[,1+input$DTPlotDT_columns_selected]
+                value = df[,1+selected_column]
             )
             p <- plot_ly(
                 data = plot_data,
@@ -160,7 +166,6 @@ pairedDTPlotModule <- function(input,output,session,
                     xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                     yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)
                 )
-            req(p)
             output$DTPlotPlot <- renderPlotly(p)
         } else if(direction == "h"){
             # + plotly line chart ----

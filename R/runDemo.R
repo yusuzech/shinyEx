@@ -9,7 +9,7 @@ runDemo <- function(name){
 #' Run Demo PairedDTplot
 #' @export
 runDemoPairedDTplot <- function(){
-    runDemo("PairedDTplot")
+    runDemo("PairedDTplotModule")
 }
 
 
