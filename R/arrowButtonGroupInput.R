@@ -25,7 +25,7 @@ arrowButtonGroupInput <- function(inputId,
             </div>
             <div>
                 <span direction='left' value='-1,0' class='arrow-button'>&#9664</span>
-                <span style='opacity:0;'>&#11035</span>
+                <span style='opacity:0;'>&#9664</span>
                 <span direction='right' value='+1,0' class='arrow-button'>&#9654</span>
             </div>
             <div>

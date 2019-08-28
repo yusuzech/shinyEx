@@ -1,13 +1,13 @@
 #' pairedDTPlotUI
 #' @export
-pairedDTPlotModuleUI <- function(id){
+pairedDTPlotlyModuleUI <- function(id){
     ns <- NS(id)
     uiOutput(ns("DTPlotUI"))
 }
 
 #'pairedDTplot Server
 #' @export
-pairedDTPlotModule <- function(input,output,session,
+pairedDTPlotlyModule <- function(input,output,session,
                          df,
                          width_dt = 8, # table width
                          width_plot = 4, # graph width,

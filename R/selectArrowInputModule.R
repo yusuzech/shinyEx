@@ -44,12 +44,19 @@ selectArrowInputModule <- function(input,output,session,
         req(!is.null(input$arrow))
         direction <- strsplit(input$arrow,":",)[[1]][1]
         val_position <- which(input$select == choices)
-
-        if(direction == "up"){
-            val_position <- val_position - 1
-        } else if(direction == "down"){
-            val_position <- val_position + 1
+        
+        # Disable select when selection is at the boundary.
+    
+        if (direction == "up") {
+            if (val_position != 1) {
+                val_position <- val_position - 1
+            }
+        } else if (direction == "down"){
+            if(val_position != length(choices)){
+                val_position <- val_position + 1
+            }
         }
+        
         
         updateSelectInput(
             session = session,
