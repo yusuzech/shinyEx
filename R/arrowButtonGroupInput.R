@@ -1,4 +1,18 @@
-#' Generates arrow buttons
+#' Create arrow buttons
+#' 
+#' @param inputId id in UI for this input
+#' @param type default to "h", valid values are "h" fo horizontal, "v" for 
+#' vertical and "a" for four directions
+#' 
+#' @details 
+#' 
+#' Since shiny won't react to static input, the values for each arrowButton returns
+#' the selected direction with the following format:
+#' 1. left:1, left:2, ....
+#' 2. right:1, right:2, ....
+#' 3. up:1, up:2, ....
+#' 4. down:1, down:2, ....
+#' 
 #' @export
 arrowButtonGroupInput <- function(inputId,
                                   type = "h"){

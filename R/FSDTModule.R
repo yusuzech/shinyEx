@@ -48,7 +48,7 @@ FSDTSampleData <- function(){
     row_type <- c("currency","currency","money","percent","percentage",
                   "number","general","general","accounting","accounting")
     
-    row_css <- tibble(`font-size` = rep(c("100%","80%"),5),
+    row_css <- tibble::tibble(`font-size` = rep(c("100%","80%"),5),
                          weight = rep(c("normal","bold"),5),
                          `text-decoration` = rep(c("none","underline"),5))
     
@@ -189,7 +189,7 @@ createFSTable <- function(df,id,row_type,
                 format_number(
                     value,type,
                     digits = row_format_rule[[type]][["digits"]],
-                    symbol = number_format_rule[[type]][["symbol"]]
+                    symbol = row_format_rule[[type]][["symbol"]]
                 )
             }
         ),
@@ -230,4 +230,70 @@ createFSTable <- function(df,id,row_type,
     
     return(df_full)
     
+}
+
+#' UI of FSDTModule
+#' 
+#' @param id id for the module
+#' 
+#' @seealso \code{\link{FSDTModule}}
+#' 
+#' @export
+
+FSDTModuleUI <- function(id){
+    ns <- NS(id)
+    
+    DT::dataTableOutput(ns("FSDT"))
+    
+}
+
+
+#' Server of FSDT Module
+#' 
+#' @param input shiny input
+#' @param output shiny outpu
+#' @param session shiny session
+#' @param df a data frame, preferably generated with \link{createFSTable}
+#' @param extensions a character vector, default to 
+#' \code{c("FixedHeader",'FixedColumns')}. value is passed to \link{DT::datatable}
+#' @param dt_options "default" or a list. value is passed to \code{options} 
+#' argument in \link{DT::datatable}
+#' 
+#' @return generates a datatable in DT package with predefined or custom attributes
+#' 
+#' @seealso \link{createFSTable}, \link{FSDTModuleUI}
+#' 
+#' @export
+FSDTModule <- function(input, output, session, df,
+                       extensions = c("FixedHeader",'FixedColumns'),
+                       dt_options = "default"){
+    # validate user input
+    stopifnot(is.data.frame(df))
+    if(is.character(dt_options)){
+        if(dt_options == "default"){
+            dt_options <- list(
+                scrollX = TRUE,
+                scrollY = "500px",
+                dom="Btip",
+                pageLength =500,
+                rownames= FALSE,
+                fixedColumns = list(leftColumns = 2),
+                ordering = FALSE
+            )
+        }
+    } else if (is.list(dt_options)){
+        # pass value directly
+    } else {
+        stop(paste("dt_options should either be 'default' or a list"))
+    }
+    
+    
+    output$FSDT <- DT::renderDataTable(
+        DT::datatable(
+            df,
+            extensions = extensions,
+            options = dt_options,
+            escape = FALSE
+        )
+    )
 }

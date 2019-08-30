@@ -2,10 +2,24 @@
 % Please edit documentation in R/arrowButtonGroupInput.R
 \name{arrowButtonGroupInput}
 \alias{arrowButtonGroupInput}
-\title{Generates arrow buttons}
+\title{Create arrow buttons}
 \usage{
 arrowButtonGroupInput(inputId, type = "h")
 }
+\arguments{
+\item{inputId}{id in UI for this input}
+
+\item{type}{default to "h", valid values are "h" fo horizontal, "v" for 
+vertical and "a" for four directions}
+}
 \description{
-Generates arrow buttons
+Create arrow buttons
+}
+\details{
+Since shiny won't react to static input, the values for each arrowButton returns
+the selected direction with the following format:
+1. left:1, left:2, ....
+2. right:1, right:2, ....
+3. up:1, up:2, ....
+4. down:1, down:2, ....
 }

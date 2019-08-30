@@ -24,3 +24,9 @@ runDemoarrowButtonGroupInput <- function(){
 runDemoselectArrowInputModule <- function(){
     runDemo("selectArrowInputModule")
 }
+
+#' run Demo FSDTModule
+#' @export
+runDemoFSDTModule <- function(){
+    runDemo("FSDTModule")
+}
