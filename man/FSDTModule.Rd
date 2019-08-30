@@ -4,7 +4,7 @@
 \alias{FSDTModule}
 \title{Server of FSDT Module}
 \usage{
-FSDTModule(input, output, session, df, extensions = c("FixedHeader",
+FSDTModule(input, output, session, id, df, extensions = c("FixedHeader",
   "FixedColumns"), dt_options = "default")
 }
 \arguments{
@@ -13,6 +13,8 @@ FSDTModule(input, output, session, df, extensions = c("FixedHeader",
 \item{output}{shiny outpu}
 
 \item{session}{shiny session}
+
+\item{id}{id for the module}
 
 \item{df}{a data frame, preferably generated with \link{createFSTable}}
 

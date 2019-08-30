@@ -31,9 +31,12 @@ glueCSS <- function(...,.envir = parent.frame()){
 #' "comma" and "accounting"
 #' @param digits digits for the number
 #' @param symbol, currency symbol. only works when type is currency.
+#' @param remove_infinite default to TRUE. Conver NA,NaN, Inf ... to ""
 #' 
 #' @return a character vector with formatted numbers
-format_number <- function(x,type,digits = 0,symbol = "$"){
+#' 
+#' @export
+format_number <- function(x,type,digits = 0,symbol = "$",remove_infinite = TRUE){
     if (type == "currency") {
         out <- formattable::currency(x, digits = digits,symbol = symbol)
     } else if (type == "percent") {
@@ -43,5 +46,12 @@ format_number <- function(x,type,digits = 0,symbol = "$"){
     } else if (type == "accounting") {
         out <- formattable::accounting(x, digits = digits)
     }
-    return(as.character(out))
+    if(remove_infinite == TRUE){
+        out_keep <- ifelse(is.finite(out),TRUE,FALSE)
+        out <- as.character(out)
+        out <- ifelse(out_keep,out,"")
+    } else {
+        out <- as.character(out)
+    }
+    return(out)
 }

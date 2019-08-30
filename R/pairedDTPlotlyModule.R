@@ -123,10 +123,23 @@ pairedDTPlotlyModule <- function(input,output,session,
             df[,-1],
             rownames = row_names,
             selection = list(target = dt_target,mode = dt_mode,selected = 1),
+            extensions = "Buttons",
             options = list(
                 scrollX = TRUE,
                 scrollY = height,
-                dom = "ftp"
+                dom = "Bftp",
+                buttons = list(
+                    list(
+                        extend = "collection",
+                        text = 'Deselect All',
+                        action = DT::JS("function ( e, dt, node, config ) {
+                                    dt.rows('.selected')
+                                        .nodes()
+                                        .to$()
+                                        .removeClass('selected');
+                                }")
+                    )
+                )
             )
         ) %>%
             dt_format_func(

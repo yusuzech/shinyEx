@@ -145,8 +145,8 @@ createFSTable <- function(df,id,row_type,
             "not numeric"
         )
     }
-    df_id <- df[,id]
-    df_value <- df[,value]
+    df_id <- df[,id,drop = FALSE]
+    df_value <- df[,value, drop = FALSE]
     
     # get row_format_rule
     if(is.character(row_format_rule)){
@@ -183,7 +183,7 @@ createFSTable <- function(df,id,row_type,
     # format numbers according to its type, convert numbers to string
     df_value_foramtted <- purrr::reduce(
         purrr::pmap(
-            bind_cols(tibble::tibble(type =valid_row_type),df_value),
+            bind_cols(tibble::tibble(type = valid_row_type),df_value),
             function(type,...){
                 value = unlist(list(...))
                 format_number(
@@ -253,6 +253,7 @@ FSDTModuleUI <- function(id){
 #' @param input shiny input
 #' @param output shiny outpu
 #' @param session shiny session
+#' @param id id for the module
 #' @param df a data frame, preferably generated with \link{createFSTable}
 #' @param extensions a character vector, default to 
 #' \code{c("FixedHeader",'FixedColumns')}. value is passed to \link{DT::datatable}
@@ -264,8 +265,8 @@ FSDTModuleUI <- function(id){
 #' @seealso \link{createFSTable}, \link{FSDTModuleUI}
 #' 
 #' @export
-FSDTModule <- function(input, output, session, df,
-                       extensions = c("FixedHeader",'FixedColumns'),
+FSDTModule <- function(input, output, session, id,df,
+                       dt_extensions = c("FixedHeader",'FixedColumns',"Buttons"),
                        dt_options = "default"){
     # validate user input
     stopifnot(is.data.frame(df))
@@ -275,9 +276,10 @@ FSDTModule <- function(input, output, session, df,
                 scrollX = TRUE,
                 scrollY = "500px",
                 dom="Btip",
+                buttons = c('copy', 'csv', 'excel', 'print'),
                 pageLength =500,
                 rownames= FALSE,
-                fixedColumns = list(leftColumns = 2),
+                fixedColumns = list(leftColumns = 1),
                 ordering = FALSE
             )
         }
@@ -291,9 +293,10 @@ FSDTModule <- function(input, output, session, df,
     output$FSDT <- DT::renderDataTable(
         DT::datatable(
             df,
-            extensions = extensions,
+            extensions = dt_extensions,
             options = dt_options,
-            escape = FALSE
+            escape = FALSE,
+            rownames = FALSE
         )
     )
 }

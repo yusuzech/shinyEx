@@ -4,7 +4,8 @@
 \alias{format_number}
 \title{using formattable functions to format a vector given its type}
 \usage{
-format_number(x, type, digits = 0, symbol = "$")
+format_number(x, type, digits = 0, symbol = "$",
+  remove_infinite = TRUE)
 }
 \arguments{
 \item{x}{a numeric vector}
@@ -15,6 +16,8 @@ format_number(x, type, digits = 0, symbol = "$")
 \item{digits}{digits for the number}
 
 \item{symbol, }{currency symbol. only works when type is currency.}
+
+\item{remove_infinite}{default to TRUE. Conver NA,NaN, Inf ... to ""}
 }
 \value{
 a character vector with formatted numbers
