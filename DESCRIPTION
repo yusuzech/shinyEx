@@ -1,4 +1,4 @@
-Package: shinyModulesEx
+Package: shinyEx
 Type: Package
 Title: Extend Shiny Modules and Inputs
 Version: 0.0.1
