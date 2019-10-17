@@ -1,7 +1,7 @@
 #' Run Demos
 #' @export
 runDemo <- function(name){
-    path <- system.file(paste0("demos/",name),package = "shinyModulesEx")
+    path <- system.file(paste0("demos/",name),package = "shinyEx")
     shiny::runApp(appDir = path)
 }
 

@@ -1,5 +1,5 @@
 library(shiny)
-library(shinyModulesEx)
+library(shinyEx)
 
 ui <- fluidPage(
   fluidRow(

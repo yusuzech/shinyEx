@@ -50,11 +50,12 @@ pairedDTPlotlyModule <- function(input,output,session,
     })
     
     # convert first column to character
-    df[,1] <- as.character(df[,1])
+    
+    df[,1] <- as.character(unlist(df[,1,drop = FALSE]))
     # all columns except the first one should be numeric
     stopifnot(purrr::map_lgl(df[,-1],is.numeric))
     col_names <- colnames(df)[-1]
-    row_names <- df[,1]
+    row_names <- unlist(df[,1,drop = FALSE])
     
     # format function depented on input type ----
     if(value_type %in% c("currency","money")){
@@ -120,7 +121,7 @@ pairedDTPlotlyModule <- function(input,output,session,
     # + datatable ----
     output$DTPlotDT <- renderDataTable({
         DT::datatable(
-            df[,-1],
+            df[,-1,drop = FALSE],
             rownames = row_names,
             selection = list(target = dt_target,mode = dt_mode,selected = 1),
             extensions = "Buttons",
@@ -164,8 +165,8 @@ pairedDTPlotlyModule <- function(input,output,session,
                 input$DTPlotDT_columns_selected
             )
             plot_data <- data.frame(
-                label = row_names,
-                value = df[,1+selected_column]
+                label = unname(row_names),
+                value = unname(unlist(df[,1+selected_column,drop=FALSE]))
             )
             p <- plot_ly(
                 data = plot_data,

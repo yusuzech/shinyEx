@@ -251,7 +251,7 @@ FSDTModuleUI <- function(id){
 #' Server of FSDT Module
 #' 
 #' @param input shiny input
-#' @param output shiny outpu
+#' @param output shiny output
 #' @param session shiny session
 #' @param id id for the module
 #' @param df a data frame, preferably generated with \link{createFSTable}

@@ -2,7 +2,7 @@ library(shiny)
 library(plotly)
 library(DT)
 library(glue)
-library(shinyModulesEx)
+library(shinyEx)
 library(dplyr)
 library(purrr)
 

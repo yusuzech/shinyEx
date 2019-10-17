@@ -4,13 +4,14 @@
 \alias{FSDTModule}
 \title{Server of FSDT Module}
 \usage{
-FSDTModule(input, output, session, id, df, extensions = c("FixedHeader",
-  "FixedColumns"), dt_options = "default")
+FSDTModule(input, output, session, id, df,
+  dt_extensions = c("FixedHeader", "FixedColumns", "Buttons"),
+  dt_options = "default")
 }
 \arguments{
 \item{input}{shiny input}
 
-\item{output}{shiny outpu}
+\item{output}{shiny output}
 
 \item{session}{shiny session}
 
@@ -18,11 +19,11 @@ FSDTModule(input, output, session, id, df, extensions = c("FixedHeader",
 
 \item{df}{a data frame, preferably generated with \link{createFSTable}}
 
-\item{extensions}{a character vector, default to 
-\code{c("FixedHeader",'FixedColumns')}. value is passed to \link{DT::datatable}}
-
 \item{dt_options}{"default" or a list. value is passed to \code{options} 
 argument in \link{DT::datatable}}
+
+\item{extensions}{a character vector, default to 
+\code{c("FixedHeader",'FixedColumns')}. value is passed to \link{DT::datatable}}
 }
 \value{
 generates a datatable in DT package with predefined or custom attributes

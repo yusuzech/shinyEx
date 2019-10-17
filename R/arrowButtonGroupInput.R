@@ -18,7 +18,7 @@ arrowButtonGroupInput <- function(inputId,
                                   type = "h"){
     shiny::addResourcePath(
         prefix = "www",
-        directoryPath = system.file("www/arrowButtonGroupInput",package = "shinyModulesEx")
+        directoryPath = system.file("www/arrowButtonGroupInput",package = "shinyEx")
     )
     
     button_groups <- list(
