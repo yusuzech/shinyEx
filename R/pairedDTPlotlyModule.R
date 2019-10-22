@@ -5,20 +5,67 @@ pairedDTPlotlyModuleUI <- function(id){
     uiOutput(ns("DTPlotUI"))
 }
 
-#'pairedDTplot Server
+#' pairedDTplot Server
+#'
+#' @param input shiny input
+#' @param output shiny output
+#' @param session shiny session
+#' @param df data frame to use. The first column should be identifiers, other columns
+#' should be values used for plotting
+#' @param width_dt width of DT, should be between 1 to 12
+#' @param width_plot width of plotly plot, should be between 1 to 12
+#' @param title title for the module
+#' @param value_type default to "none", how the values in data frame should be 
+#' formatted. See more in details
+#' @param direction "v" or "h" plot horizontally or vertically. See more in details
+#' @param h_ignore_columns When plotting ,whether to ignore listed columns.
+#' @param h_reverse whether to reverse graph when ploting horizontally
+#' @param height height of DT in module, in pixels
+#' @param server for DT, whether to use server side processing
+#' 
+#' @return DT table and plotly graph
+#' 
+#' @details 
+#' \code{value_type}:
+#' \itemize{
+#'     \item none: no extra formatting
+#'     \item currency: dollar sign prefix, digits round to 0
+#'     \item percent: percentage sign suffix, digits round to 2
+#'     \item general: digits round to 2
+#' }
+#' 
+#' \code{direction}:
+#' \itemize{
+#'     \item v: select and create pie chart using columns
+#'     \item h: select and create line chart using rows
+#' }
+#' 
+#' @examples 
+#' \dontrun{
+#' # See demo:
+#' runDemoPairedDTplotlyModule()
+#' }
+#'
 #' @export
 pairedDTPlotlyModule <- function(input,output,session,
                          df,
                          width_dt = 8, # table width
                          width_plot = 4, # graph width,
                          title = "", # title for the module
-                         value_type = "general", #valid
+                         value_type = "none", #valid
                          direction = "v", #h & v for horizontal and vertical
                          h_ignore_columns = NULL, # column names to igonore when plotting horizontally
                          h_reverse = FALSE, # reverse ehen plotting horizontally?
                          height = "300px",
                          server = FALSE # table on server side
 ){
+    # validate user input
+    numeric_columns <- purrr::map_lgl(df[,2:ncol(df),drop = FALSE],is.numeric)
+    if(!all(numeric_columns)){
+        msg <- paste("Following columns must be numerical:",
+                     paste0(colnames(df)[!numeric_columns],collapse = ","))
+        stop(msg)
+    }
     # detect if need to hide the bar chart
     if((direction == "v") & (value_type %in% c("percent","percentage"))){
         plot_visibility <- "hidden"
@@ -29,8 +76,9 @@ pairedDTPlotlyModule <- function(input,output,session,
     output$DTPlotUI <- renderUI({
         ns <- session$ns
         div(
-            fluidRow(tags$h4(title)),
+            style = "margin-left:25px",
             fluidRow(
+                tags$h4(title),
                 column(
                     width = width_dt,
                     div(
@@ -86,11 +134,11 @@ pairedDTPlotlyModule <- function(input,output,session,
         plot_y_tick_foramt <- "%.2f"
         
         number_format_func <- function(x){
-            formattable::percent(x,digits = 2)
+            x
         }
         
         
-    } else {
+    } else if (value_type %in% "general") {
         dt_format_func <- function(table,columns){
             DT::formatRound(
                 table,
@@ -103,6 +151,16 @@ pairedDTPlotlyModule <- function(input,output,session,
         
         number_format_func <- function(x){
             formattable::comma(x,digits = 2)
+        }
+    } else {
+        dt_format_func <- function(table,...){
+            table
+        }
+        
+        plot_y_tick_foramt <- "NULL"
+        
+        number_format_func <- function(x){
+           x
         }
         
     }

@@ -1,0 +1,37 @@
+library(shiny)
+library(DT)
+library(dplyr)
+
+set.seed(1234)
+sampleData <-
+    tidyr::expand_grid(
+        level0 = c("A","B","C"),
+        level1 = c("a","b","c","d"),
+        level2 = c("x","y","z"),
+        level3 = c("m","n","o"),
+        group_col = c("group1","group2","group3","group4")
+    ) %>%
+    dplyr::mutate(
+        value = runif(n = nrow(.)),
+        drop = sample(letters,n(),replace = TRUE)
+    ) %>%
+    {
+        .[sample(1:nrow(.),size = nrow(.) * 0.5),]
+    }
+
+ui <- fluidPage(
+    drillDTModalModuleUI("test1")
+)
+
+server <- function(input, output, session) {
+    callModule(
+        module = drillDTModalModule,
+        id = "test1",
+        sampleData,
+        levels_col = colnames(sampleData)[1:4],
+        value_col = "value",
+        fill_level = FALSE
+    )
+}
+
+shinyApp(ui, server)

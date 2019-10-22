@@ -5,10 +5,64 @@
 \title{pairedDTplot Server}
 \usage{
 pairedDTPlotlyModule(input, output, session, df, width_dt = 8,
-  width_plot = 4, title = "", value_type = "general",
-  direction = "v", h_ignore_columns = NULL, h_reverse = FALSE,
-  height = "300px", server = FALSE)
+  width_plot = 4, title = "", value_type = "none", direction = "v",
+  h_ignore_columns = NULL, h_reverse = FALSE, height = "300px",
+  server = FALSE)
+}
+\arguments{
+\item{input}{shiny input}
+
+\item{output}{shiny output}
+
+\item{session}{shiny session}
+
+\item{df}{data frame to use. The first column should be identifiers, other columns
+should be values used for plotting}
+
+\item{width_dt}{width of DT, should be between 1 to 12}
+
+\item{width_plot}{width of plotly plot, should be between 1 to 12}
+
+\item{title}{title for the module}
+
+\item{value_type}{default to "none", how the values in data frame should be 
+formatted. See more in details}
+
+\item{direction}{"v" or "h" plot horizontally or vertically. See more in details}
+
+\item{h_ignore_columns}{When plotting ,whether to ignore listed columns.}
+
+\item{h_reverse}{whether to reverse graph when ploting horizontally}
+
+\item{height}{height of DT in module, in pixels}
+
+\item{server}{for DT, whether to use server side processing}
+}
+\value{
+DT table and plotly graph
 }
 \description{
 pairedDTplot Server
+}
+\details{
+\code{value_type}:
+\itemize{
+    \item none: no extra formatting
+    \item currency: dollar sign prefix, digits round to 0
+    \item percent: percentage sign suffix, digits round to 2
+    \item general: digits round to 2
+}
+
+\code{direction}:
+\itemize{
+    \item v: select and create pie chart using columns
+    \item h: select and create line chart using rows
+}
+}
+\examples{
+\dontrun{
+# See demo:
+runDemoPairedDTplotlyModule()
+}
+
 }
