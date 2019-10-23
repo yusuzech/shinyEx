@@ -1,4 +1,5 @@
 library(shiny)
+library(shinydashboard)
 library(DT)
 library(dplyr)
 
@@ -20,17 +21,21 @@ sampleData <-
     }
 
 ui <- fluidPage(
-    drillDTModalModuleUI("test1")
+    drilldownDTModuleUI("test1")
 )
 
 server <- function(input, output, session) {
     callModule(
-        module = drillDTModalModule,
+        module = drilldownDTModule,
         id = "test1",
         sampleData,
-        levels_col = colnames(sampleData)[1:4],
+        level_cols = colnames(sampleData)[1:4],
         value_col = "value",
-        fill_level = FALSE
+        options = list(
+            box = list(
+                title = "Test Title"
+            )
+        )
     )
 }
 
